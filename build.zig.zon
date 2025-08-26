@@ -2,7 +2,7 @@
     .name = .zort,
     .version = "0.0.0",
     .fingerprint = 0x2c2cbda8222dce8f,
-    .minimum_zig_version = "0.14.1",
+    .minimum_zig_version = "0.15.1",
     .dependencies = .{},
     .paths = .{
         "build.zig",

@@ -765,20 +765,20 @@ test "timSort" {
         const TESTS = 10;
         const ITEMS = 10_000;
 
-        var rnd = std.rand.DefaultPrng.init(@intCast(std.time.milliTimestamp()));
+        var rnd = std.Random.DefaultPrng.init(@intCast(std.time.milliTimestamp()));
 
         var tc: usize = 0;
         while (tc < TESTS) : (tc += 1) {
             var array = try std.ArrayList(TEST_TYPE).initCapacity(std.testing.allocator, ITEMS);
-            defer array.deinit();
+            defer array.deinit(std.testing.allocator);
 
             var item: usize = 0;
             while (item < ITEMS) : (item += 1) {
                 const value = rnd.random().int(TEST_TYPE);
                 array.appendAssumeCapacity(value);
             }
-            var reference = try array.clone();
-            defer reference.deinit();
+            var reference = try array.clone(std.testing.allocator);
+            defer reference.deinit(std.testing.allocator);
 
             std.mem.sort(TEST_TYPE, reference.items, {}, comptime std.sort.asc(TEST_TYPE));
 
@@ -794,20 +794,20 @@ test "timSort" {
         const TESTS = 10;
         const ITEMS = 10_000;
 
-        var rnd = std.rand.DefaultPrng.init(@intCast(std.time.milliTimestamp()));
+        var rnd = std.Random.DefaultPrng.init(@intCast(std.time.milliTimestamp()));
 
         var tc: usize = 0;
         while (tc < TESTS) : (tc += 1) {
             var array = try std.ArrayList(TEST_TYPE).initCapacity(std.testing.allocator, ITEMS);
-            defer array.deinit();
+            defer array.deinit(std.testing.allocator);
 
             var item: usize = 0;
             while (item < ITEMS) : (item += 1) {
                 const value = rnd.random().int(TEST_TYPE);
                 array.appendAssumeCapacity(value);
             }
-            var reference = try array.clone();
-            defer reference.deinit();
+            var reference = try array.clone(std.testing.allocator);
+            defer reference.deinit(std.testing.allocator);
 
             std.mem.sort(TEST_TYPE, reference.items, {}, comptime std.sort.desc(TEST_TYPE));
 
